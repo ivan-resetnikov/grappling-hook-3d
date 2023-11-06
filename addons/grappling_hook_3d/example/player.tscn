@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://micgwbpw0qyy"]
+
+[ext_resource type="Script" path="res://addons/grappling_hook_3d/example/player.gd" id="1_5t7oi"]
+[ext_resource type="Script" path="res://addons/grappling_hook_3d/src/hook_controller.gd" id="2_yq2dk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iop0k"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rx8sc"]
+radial_segments = 16
+rings = 4
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_5t7oi")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_iop0k")
+
+[node name="Model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_rx8sc")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Hook Raycast" type="RayCast3D" parent="Camera"]
+target_position = Vector3(0, 0, -20)
+
+[node name="HookController" type="Node" parent="." node_paths=PackedStringArray("hook_raycast", "player_body")]
+script = ExtResource("2_yq2dk")
+hook_raycast = NodePath("../Camera/Hook Raycast")
+player_body = NodePath("..")
+launch_action_name = "launch_grapple"
+retract_action_name = "retract_grapple"
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Cursor" type="ColorRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -2.5
+offset_right = 3.0
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
