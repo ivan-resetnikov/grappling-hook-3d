@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://micgwbpw0qyy"]
+[gd_scene load_steps=7 format=3 uid="uid://micgwbpw0qyy"]
 
 [ext_resource type="Script" path="res://addons/grappling_hook_3d/example/player.gd" id="1_5t7oi"]
 [ext_resource type="Script" path="res://addons/grappling_hook_3d/src/hook_controller.gd" id="2_yq2dk"]
@@ -8,6 +8,13 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rx8sc"]
 radial_segments = 16
 rings = 4
+
+[sub_resource type="BoxMesh" id="BoxMesh_avvgw"]
+size = Vector3(0.2, 0.3, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_81rbu"]
+albedo_color = Color(0.396078, 0.396078, 0.396078, 1)
+metallic = 1.0
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_5t7oi")
@@ -20,18 +27,32 @@ shape = SubResource("CapsuleShape3D_iop0k")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_rx8sc")
 
+[node name="Hook Source" type="Marker3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.293922, -0.27817)
+
+[node name="Hook Container 0" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0.5, -0.411046, 0.183007)
+mesh = SubResource("BoxMesh_avvgw")
+surface_material_override/0 = SubResource("StandardMaterial3D_81rbu")
+
+[node name="Hook Container 1" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, -0.5, -0.411, 0.183)
+mesh = SubResource("BoxMesh_avvgw")
+surface_material_override/0 = SubResource("StandardMaterial3D_81rbu")
+
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Hook Raycast" type="RayCast3D" parent="Camera"]
-target_position = Vector3(0, 0, -20)
+target_position = Vector3(0, 0, -25)
 
-[node name="HookController" type="Node" parent="." node_paths=PackedStringArray("hook_raycast", "player_body")]
+[node name="Hook Controller" type="Node" parent="." node_paths=PackedStringArray("hook_raycast", "player_body", "hook_source")]
 script = ExtResource("2_yq2dk")
 hook_raycast = NodePath("../Camera/Hook Raycast")
 player_body = NodePath("..")
 launch_action_name = "launch_grapple"
 retract_action_name = "retract_grapple"
+hook_source = NodePath("../Model/Hook Source")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

@@ -3,7 +3,7 @@ class_name HookController
 
 
 @export_category("Hook Controller")
-@export_group("Requred Settings")
+@export_group("Required Settings")
 @export var hook_raycast: RayCast3D
 @export var player_body: CharacterBody3D
 @export var launch_action_name: String
