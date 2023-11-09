@@ -20,11 +20,17 @@ var _hook_target_normal: Vector3
 var is_hook_launched: bool
 var hook_target_position: Vector3
 
+signal hook_launched()
+signal hook_attached()
+signal hook_detached()
+
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed(launch_action_name):
+		hook_launched.emit()
+		
 		if not is_hook_launched and hook_raycast.is_colliding():
-			_launch_hook()
+			_attach_hook()
 		
 		elif is_hook_launched:
 			_retract_hook()
@@ -33,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		_handle_hook(delta)
 
 
-func _launch_hook() -> void:
+func _attach_hook() -> void:
 	is_hook_launched = true
 	
 	hook_target_position = hook_raycast.get_collision_point()
@@ -41,12 +47,16 @@ func _launch_hook() -> void:
 	
 	_hook_model = hook_scene.instantiate()
 	add_child(_hook_model)
+	
+	hook_attached.emit()
 
 
 func _retract_hook() -> void:
 	is_hook_launched = false
 	
 	_hook_model.queue_free()
+	
+	hook_detached.emit()
 
 
 func _handle_hook(delta: float) -> void:

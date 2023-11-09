@@ -27,15 +27,15 @@ shape = SubResource("CapsuleShape3D_iop0k")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_rx8sc")
 
-[node name="Hook Source" type="Marker3D" parent="Model"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.293922, -0.27817)
-
-[node name="Hook Container 0" type="MeshInstance3D" parent="Model"]
+[node name="HookContainer0" type="MeshInstance3D" parent="Model"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0.5, -0.411046, 0.183007)
 mesh = SubResource("BoxMesh_avvgw")
 surface_material_override/0 = SubResource("StandardMaterial3D_81rbu")
 
-[node name="Hook Container 1" type="MeshInstance3D" parent="Model"]
+[node name="Hook Source" type="Marker3D" parent="Model/HookContainer0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="HookContainer1" type="MeshInstance3D" parent="Model"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, -0.5, -0.411, 0.183)
 mesh = SubResource("BoxMesh_avvgw")
 surface_material_override/0 = SubResource("StandardMaterial3D_81rbu")
@@ -46,13 +46,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Hook Raycast" type="RayCast3D" parent="Camera"]
 target_position = Vector3(0, 0, -25)
 
-[node name="Hook Controller" type="Node" parent="." node_paths=PackedStringArray("hook_raycast", "player_body", "hook_source")]
+[node name="HookController" type="Node" parent="." node_paths=PackedStringArray("hook_raycast", "player_body", "hook_source")]
 script = ExtResource("2_yq2dk")
 hook_raycast = NodePath("../Camera/Hook Raycast")
 player_body = NodePath("..")
 launch_action_name = "launch_grapple"
 retract_action_name = "retract_grapple"
-hook_source = NodePath("../Model/Hook Source")
+hook_source = NodePath("../Model/HookContainer0/Hook Source")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
