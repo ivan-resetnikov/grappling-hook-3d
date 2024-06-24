@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2ns0ejqc0dlq"]
+[gd_scene load_steps=6 format=3 uid="uid://b2ns0ejqc0dlq"]
 
 [ext_resource type="PackedScene" uid="uid://micgwbpw0qyy" path="res://addons/grappling_hook_3d/example/player.tscn" id="1_eecwy"]
+[ext_resource type="Script" path="res://addons/grappling_hook_3d/example/moving_box.gd" id="2_1k06k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2ip0h"]
 sky_top_color = Color(0, 0.482353, 0.992157, 1)
@@ -14,8 +15,9 @@ sky_material = SubResource("ProceduralSkyMaterial_2ip0h")
 [sub_resource type="Environment" id="Environment_kb545"]
 background_mode = 2
 sky = SubResource("Sky_nbfya")
+ambient_light_source = 2
+ambient_light_color = Color(0.301961, 0.301961, 0.301961, 1)
 tonemap_mode = 2
-glow_enabled = true
 
 [node name="Main" type="Node"]
 
@@ -40,7 +42,7 @@ double_sided = false
 texture_filter = 5
 text = "Try to get to the next platform
 
-Launch/Retract hook: RMB"
+Launch/Retract hook: LMB"
 
 [node name="Platform1" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -36)
@@ -67,3 +69,30 @@ pixel_size = 0.01
 double_sided = false
 texture_filter = 5
 text = "How?"
+
+[node name="MovingBox" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 6.5, -21)
+use_collision = true
+size = Vector3(2, 2, 2)
+script = ExtResource("2_1k06k")
+
+[node name="Label" type="Label3D" parent="MovingBox"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -5, 0.0100002, 5)
+pixel_size = 0.01
+double_sided = false
+texture_filter = 5
+text = "Works on moving objects too!"
+font_size = 64
+outline_size = 32
+
+[node name="Credits" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 3, 6)
+pixel_size = 0.01
+double_sided = false
+texture_filter = 5
+text = "[ Credits ]
+
+Author: LowRezCat
+Special thanks: u/[deleted] :(
+Moving bodies support idea: u/Just_Some_Test"
+outline_size = 16

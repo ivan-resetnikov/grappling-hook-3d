@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://micgwbpw0qyy"]
+[gd_scene load_steps=8 format=3 uid="uid://micgwbpw0qyy"]
 
 [ext_resource type="Script" path="res://addons/grappling_hook_3d/example/player.gd" id="1_5t7oi"]
 [ext_resource type="Script" path="res://addons/grappling_hook_3d/src/hook_controller.gd" id="2_yq2dk"]
+[ext_resource type="Texture2D" uid="uid://cskw882fffi36" path="res://addons/grappling_hook_3d/example/hook_availible.png" id="3_k3ota"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iop0k"]
 
@@ -27,15 +28,15 @@ shape = SubResource("CapsuleShape3D_iop0k")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_rx8sc")
 
-[node name="HookContainer0" type="MeshInstance3D" parent="Model"]
+[node name="Gear0" type="MeshInstance3D" parent="Model"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0.5, -0.411046, 0.183007)
 mesh = SubResource("BoxMesh_avvgw")
 surface_material_override/0 = SubResource("StandardMaterial3D_81rbu")
 
-[node name="Hook Source" type="Marker3D" parent="Model/HookContainer0"]
+[node name="HookRopeStart" type="Marker3D" parent="Model/Gear0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 
-[node name="HookContainer1" type="MeshInstance3D" parent="Model"]
+[node name="Gear1" type="MeshInstance3D" parent="Model"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, -0.5, -0.411, 0.183)
 mesh = SubResource("BoxMesh_avvgw")
 surface_material_override/0 = SubResource("StandardMaterial3D_81rbu")
@@ -52,20 +53,21 @@ hook_raycast = NodePath("../Camera/Hook Raycast")
 player_body = NodePath("..")
 launch_action_name = "launch_grapple"
 retract_action_name = "retract_grapple"
-hook_source = NodePath("../Model/HookContainer0/Hook Source")
+hook_source = NodePath("../Model/Gear0/HookRopeStart")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Cursor" type="ColorRect" parent="HUD"]
+[node name="Crosshair" type="TextureRect" parent="HUD"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3.0
-offset_top = -2.5
-offset_right = 3.0
-offset_bottom = 2.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("3_k3ota")

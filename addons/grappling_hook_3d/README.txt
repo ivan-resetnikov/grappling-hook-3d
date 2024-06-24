@@ -2,7 +2,6 @@ To quickly check out the capability of this addon, please check out the example 
 located at res://addons/grappling_hook_3d/example/main.tscn
 
 
-
 (*) How to get started:
 
 1. Have your player scene
@@ -20,7 +19,6 @@ located at res://addons/grappling_hook_3d/example/main.tscn
 		(Can be the same as launch action)
 
 
-
 (*) Customisation
 
 Every availible customisation setting is located at "Optional settings" tab in
@@ -28,9 +26,8 @@ the inspector of "HookController" node.
 
 - Pull Speed (float) - Force at whitch hook pulls you towards the target
 
-- Hook source (Node3D) - Node from whitch visual instance of rope start from
+- Hook source (Node3D) - Node from which visual instance of the rope start from
 	(Only affects visuals)
-
 
 
 (*) Advanced
@@ -39,4 +36,4 @@ Every availible advanced customisation setting is located at "Advanced settings"
 the inspector of "HookController" node.
 
 - Hook scene (PackedScene) - A scene that contains a hook scene, try cloning the
-	default scene and snoop around it. It sould be easy to make one yourself.
+	default scene and snoop around it. It should be easy to make something yourself.
